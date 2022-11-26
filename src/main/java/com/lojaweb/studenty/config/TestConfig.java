@@ -8,9 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.lojaweb.studenty.entities.Category;
 import com.lojaweb.studenty.entities.Order;
 import com.lojaweb.studenty.entities.OrderStatus;
 import com.lojaweb.studenty.entities.User;
+import com.lojaweb.studenty.repositories.CategoryRepository;
 import com.lojaweb.studenty.repositories.OrderRepository;
 import com.lojaweb.studenty.repositories.UserRepository;
 
@@ -20,6 +22,9 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@Autowired
 	private OrderRepository orderRepository;
@@ -33,6 +38,11 @@ public class TestConfig implements CommandLineRunner {
 		Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.WAITING_PAIMENT, u2);
 		Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.WAITING_PAIMENT, u1);
 
+		Category cat1 = new Category(null, "Electronics");
+		Category cat2 = new Category(null, "Books");
+		Category cat3 = new Category(null, "Computers");
+		
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
 	}
